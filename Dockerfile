@@ -1,12 +1,12 @@
-FROM python:3.9
+FROM jjanzic/docker-python3-opencv
 
-RUN git clone https://github.com/dzenbots/qr-bot.git
-
-WORKDIR ./qr-bot
 ENV TZ=Europe/Moscow
 
-RUN pip install --no-cache-dir -r requirements.txt
-ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.7.3/wait /wait
-RUN chmod +x /wait
+RUN git clone https://github.com/dzenbots/qr-bot.git
+RUN cd qr-bot
+WORKDIR qr-bot
+RUN pip install numpy
+RUN pip install -r requirements.txt
+RUN mkdir temp
 
-CMD /wait && python app.py
+CMD python app.py
